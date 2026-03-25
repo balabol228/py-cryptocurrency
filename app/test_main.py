@@ -32,3 +32,19 @@ def test_do_nothing_with_minimal_change(
 ) -> None:
     mock_prediction.return_value = 101
     assert cryptocurrency_action(100) == "Do nothing"
+
+
+@patch("app.main.get_exchange_rate_prediction")
+def test_do_nothing_at_exact_5_percent_up(
+        mock_prediction: MagicMock
+) -> None:
+    mock_prediction.return_value = 105
+    assert cryptocurrency_action(100) == "Do nothing"
+
+
+@patch("app.main.get_exchange_rate_prediction")
+def test_do_nothing_at_exact_5_percent_down(
+        mock_prediction: MagicMock
+) -> None:
+    mock_prediction.return_value = 95
+    assert cryptocurrency_action(100) == "Do nothing"
